@@ -1,0 +1,10 @@
+approach :
+
+launch server:
+------------------------------------
+
+services : ec2
+
+name : myos1
+ami : ami-0a1235697f4afa8a4
+instance type : t2.micro
