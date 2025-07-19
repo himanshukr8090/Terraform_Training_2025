@@ -32,12 +32,11 @@ resource "null_resource" "remort_login" {
     inline = [#✅Force format to avoid mount errors
               "sudo mkfs.xfs -f /dev/xvdh",
 
-              # ✅ Install Apache
+              # ✅Install Apache
               "sudo yum install httpd -y",
 
-               # ✅ Mount volume to HTML directory
+               # ✅Mount volume to HTML directory
               "sudo mount /dev/xvdh  /var/www/html",
-
               "sudo sh -c \"echo 'Welcome To my Webpage created using Terraform' > /var/www/html/index.html\" ",
               "sudo systemctl restart httpd"
      ]
@@ -48,6 +47,12 @@ resource "null_resource" "remort_login" {
       user     = "ec2-user"
       private_key = file("c:/Users/hp/LW-Projects.pem")
       host     = aws_instance.myweb.public_ip
+  }
+}
+
+resource "null_resource" "local_access" {
+  provisioner "local_exec" {
+      command = "chrome http://${aws_instance.myweb.public_ip}/"
   }
 }
 
